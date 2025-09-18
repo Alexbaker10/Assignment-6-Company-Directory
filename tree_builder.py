@@ -1,39 +1,36 @@
 class EmployeeNode:
-    '''
-    A class to represent a node in the binary tree.
-    Attributes:
-        name (str): The name of the employee.
-        left (EmployeeNode): The left child node, representing the left subordinate.
-        right (EmployeeNode): The right child node, representing the right subordinate.
-    '''
-
-    # Delete this line and implement the class below
-    pass
+    def __init__(self,name):
+        self.name = name
+        self.left = None
+        self.right = None
 
 class TeamTree:
-    '''
-    A class to represent a binary tree for managing a team structure.
-    Attributes:
-        root (EmployeeNode): The root node of the tree, representing the team lead.
-    Methods:
-        insert(manager_name, employee_name, side, current_node=None): Inserts a new employee under the specified manager.
-        print_tree(node=None, level=0): Prints the tree structure starting from the given node.
-
-    '''
+    def __init__(self):
+        self.root = None
+        
+    def insert(self, manager_name, employee_name, side, cur_node=None):
+    if cur_node == None:
+        if self.root == None:
+            return False
+        cur_node = self.root
     
-    # Delete this line and implement the class below
-    pass
+    if cur_node.name == manager_name:
+        if side == "left" and cur_node.left == None:
+            cur_node.left = EmployeeNode(employee_name)
+        elif side == "right" and cur_node.right == None:
+            cur_node.right = EmployeeNode(employee_name)
+    else return False
+    
+    left_good = False
+    if cur_node.left:
+        left_good = self.insert(manager_name, employee_name, side, cur_node.left)
+    right_good = False
+    if cur_node.right:
+        right_good = self.insert(manager_name, employee_name, side, cur_node.right)
+    
+    return left_good or right_good
 
 # Test your code here
-
-
-
-
-
-
-
-
-
 # CLI functionality
 def company_directory():
     tree = TeamTree()
