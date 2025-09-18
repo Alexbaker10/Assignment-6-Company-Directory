@@ -21,7 +21,6 @@ class TeamTree:
             elif side == "right" and cur_node.right == None:
                 cur_node.right = EmployeeNode(employee_name)
                 return True
-        return False
     
         left_good = False
         if cur_node.left:
