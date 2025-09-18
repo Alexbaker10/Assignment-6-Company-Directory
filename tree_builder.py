@@ -9,27 +9,40 @@ class TeamTree:
         self.root = None
         
     def insert(self, manager_name, employee_name, side, cur_node=None):
-    if cur_node == None:
-        if self.root == None:
-            return False
-        cur_node = self.root
+        if cur_node == None:
+            if self.root == None:
+                return False
+            cur_node = self.root
     
-    if cur_node.name == manager_name:
-        if side == "left" and cur_node.left == None:
-            cur_node.left = EmployeeNode(employee_name)
-        elif side == "right" and cur_node.right == None:
-            cur_node.right = EmployeeNode(employee_name)
-    else return False
+        if cur_node.name == manager_name:
+            if side == "left" and cur_node.left == None:
+                cur_node.left = EmployeeNode(employee_name)
+                return True
+            elif side == "right" and cur_node.right == None:
+                cur_node.right = EmployeeNode(employee_name)
+                return True
+        else return False
     
-    left_good = False
-    if cur_node.left:
-        left_good = self.insert(manager_name, employee_name, side, cur_node.left)
-    right_good = False
-    if cur_node.right:
-        right_good = self.insert(manager_name, employee_name, side, cur_node.right)
+        left_good = False
+        if cur_node.left:
+            left_good = self.insert(manager_name, employee_name, side, cur_node.left)
+        right_good = False
+        if cur_node.right:
+            right_good = self.insert(manager_name, employee_name, side, cur_node.right)
     
-    return left_good or right_good
-
+        return left_good or right_good
+        
+    def print_tree(self,node=None, level=0):
+        if node is None:
+            node = self.root
+        if node is None:
+            print("Your tree is empty")
+            return
+        print("  " * level + node.name)
+        if node.left:
+            self.print_tree(node.left, level + 1)
+        if node.right:
+            self.print_tree(node.right, level + 1)
 # Test your code here
 # CLI functionality
 def company_directory():
